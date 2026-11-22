@@ -1,98 +1,200 @@
 # WellGuard | DATA TITANS — DSMLC Datathon 2026
 
-**Predict risk · Prioritize inspections · Support better production decisions**
+**Predict Risk · Prioritize Inspections · Support Better Production Decisions**
 
-**Research question:** How can predictive maintenance and production optimization analytics help Strathcona Resources identify high-priority wells, prioritize inspections, and support data-driven decisions to reduce operational losses?
+### Team DATA TITANS
 
-| Submission item | Link / location |
+- **Saad Gul**
+- **Dia Toredi**
+- **Syed Ali**
+- **Elnaz Ebrahimi**
+
+### Research Question
+
+How can predictive maintenance and production optimization analytics help Strathcona Resources identify high-priority wells, prioritize inspections, and support data-driven decisions to reduce operational losses?
+
+## Project Resources
+
+| Resource | Link |
 |---|---|
-| **Live interactive WellGuard dashboard** | **Add deployed Streamlit Community Cloud URL** |
-| **Five-minute summary video** | **Add publicly accessible video URL** |
-| **Presentation slides** | **Add accessible slide URL or slides file** |
-| **Registered team members** | **Insert exact registered members before submission** |
+| **Live Interactive Dashboard** | Coming soon — Streamlit deployment |
+| **Five-Minute Demonstration Video** | [Watch Video](https://drive.google.com/file/d/1k9JjCHW6yomQqg_amaE4EvXxowXeUAj9/view?usp=drive_link) |
+| **Final Competition Presentation** | [View Presentation](https://docs.google.com/presentation/d/1iyn9YzzsCQj7LIBIeJg3cTDimuVDbJBs/edit?usp=drive_link&ouid=117368338465875849058&rtpof=true&sd=true) |
 
-## Overview
+## 1. Project Overview
 
-WellGuard examines whether weekly risk rankings built from historical operating measurements can prioritize which wells to inspect when weekly review capacity is constrained. The research predicts a **recorded failure in the following 1–14 days**, evaluates rankings on chronologically later observations, and compares with a failure-recency baseline. This is **a retrospective research prototype**, not a live operational model or a demonstrated preventive-maintenance intervention.
+**WellGuard** is a predictive maintenance and operational decision-support platform designed to help prioritize oil and gas well inspections using historical operating data, equipment performance indicators, and recorded failures.
 
-## Open the full public interactive dashboard
+The project addresses a practical operational challenge: **When inspection resources are limited, which wells should receive attention first?**
 
-The public Streamlit deployment contains the **10 major WellGuard sections**, with working filters and interactive charts:
+WellGuard combines historical failure-risk rankings, inspection scheduling, production monitoring, maintenance analysis, and explainable evidence to support engineering decisions.
 
-| Page | What can be explored |
+The predictive research focuses on identifying wells at elevated risk of a recorded equipment failure within the following **1–14 days**.
+
+The solution is a retrospective research prototype, not a live production system.
+
+## 2. Interactive Dashboard
+
+The public Streamlit application includes 10 major sections.
+
+| Dashboard Section | Key Functionality |
 |---|---|
-| **Executive Overview** | Saved historical research performance, 25/50/100 review-capacity comparisons, simulated fleet KPIs |
-| **Fleet Map** | Fictional well footprint, sector and relative-risk filters; coordinates are not geographic |
-| **Equipment Health** | Synthetic per-well pump, pressure, efficiency, downtime and oil-rate history |
-| **Failure Records** | Example event explorer using synthetic records, plus actual dataset-level source counts |
-| **Inspection Scheduler** | Rank fictional wells; change 25/50/100 slots, week, sector and repeat-review cooldown; download demo queue |
-| **Model Validation Lab** | Saved reference ROC-AUC, average precision, monthly comparison, ablation / capacity evidence |
-| **Maintenance Effectiveness** | Simulated service-job trends with clearly labelled non-causal pre/post comparisons |
-| **Production & Downtime** | Simulated production, downtime and loss charts with date-range selection |
-| **Data Reliability** | Dataset-level source coverage and synthetic demo telemetry completeness |
-| **Well Investigator** | Explainable, deterministic investigation of fictional scores, sensor changes, jobs and losses |
+| **Executive Overview** | Historical performance, inspection scenarios, fleet indicators |
+| **Fleet Map** | Interactive fictional asset visualization and risk filters |
+| **Equipment Health** | Pump performance, pressure, efficiency, production and downtime trends |
+| **Failure Records** | Example failure events and historical dataset summary |
+| **Inspection Scheduler** | Prioritized inspection queues with 25, 50 and 100 weekly review capacities |
+| **Model Validation Lab** | ROC-AUC, average precision, chronological testing and baseline comparisons |
+| **Maintenance Effectiveness** | Maintenance activity and pre/post operating comparisons |
+| **Production & Downtime** | Production trends, recorded downtime and estimated loss analysis |
+| **Data Reliability** | Data completeness, sensor availability and quality indicators |
+| **Well Investigator** | Evidence-based explanations of well rankings and operating changes |
 
-### Crucial distinction: research benchmark vs. public demo
+### Inspection Capacity Optimization
 
-**Saved retrospective research aggregates** come from the competition analysis and are reproduced in `public_data/benchmark.json` and `public_data/monthly_summary.csv` as published summary metrics, **subject to organizer approval**. The original private source records are not included, so those aggregates are displayed, not recalculated online.
+The Inspection Scheduler allows users to explore three operational scenarios:
 
-**All individual well identifiers (`DEMO-####`), positions, scores, sensor readings, maintenance records, failure examples and loss charts are entirely synthetic**, generated from a fixed seed in [`demo_data.py`](demo_data.py). They are fictional UI examples, not anonymized or reconstructed Strathcona data; they do **not** demonstrate real-world model accuracy or field savings. The app visibly identifies these sections as simulated. Its well investigator uses transparent rules, not autonomous diagnosis.
+- **25 reviews per week:** Highest-priority shortlist under constrained inspection capacity.
+- **50 reviews per week:** Expanded inspection coverage.
+- **100 reviews per week:** Broader coverage of the eligible fleet.
 
-## Saved historical performance
+Users can explore inspection rankings, filtering criteria, historical capacity comparisons and supporting operating indicators.
 
-Source datasets have **5,075,590** daily operating records, **15,610** maintenance jobs, and **2,873** reported failure rows. The reference model used three separate chronological periods:
+## 3. Dataset Overview
 
-| Period | Dates | Well-weeks |
+The project analyzes three primary datasets provided for the competition.
+
+| Dataset | Records |
+|---|---:|
+| Daily Production | 5,075,590 |
+| Maintenance Jobs | 15,610 |
+| Recorded Equipment Failures | 2,873 |
+
+The analytical workflow includes data cleaning, date alignment, historical feature engineering, chronological validation, and failure-risk ranking.
+
+## 4. Predictive Modeling and Validation
+
+WellGuard evaluates historical operating measurements to rank wells by their relative risk of a recorded failure within the next 14 days.
+
+The research uses a chronological training, validation and testing framework to reduce future-information leakage.
+
+### Historical Data Splits
+
+| Dataset | Period | Well-Week Observations |
 |---|---|---:|
 | Training | June 1, 2025 – March 1, 2026 | 48,865 |
 | Validation | March 22 – May 17, 2026 | 11,149 |
-| Test | June 7 – October 4, 2026 | 22,580 |
+| Testing | June 7 – October 4, 2026 | 22,580 |
 
-| Historical test metric | WellGuard reference | Failure-recency baseline |
+### Model Performance
+
+| Metric | WellGuard Reference Model | Failure-Recency Baseline |
 |---|---:|---:|
 | ROC-AUC | **0.8055** | 0.7243 |
-| Average precision | **0.1637** | 0.1030 |
-| Distinct eligible events flagged, 25 reviews/week | **116 / 643** | 75 / 643 |
-| Distinct eligible events flagged, 50 reviews/week | **180 / 643** | 114 / 643 |
-| Distinct eligible events flagged, 100 reviews/week | **289 / 643** | 188 / 643 |
+| Average Precision | **0.1637** | 0.1030 |
+| Events Flagged — 25 Reviews/Week | **116 / 643** | 75 / 643 |
+| Events Flagged — 50 Reviews/Week | **180 / 643** | 114 / 643 |
+| Events Flagged — 100 Reviews/Week | **289 / 643** | 188 / 643 |
 
-At 25 weekly reviews, the historical benchmark identified **41 additional recorded events** relative to the same-capacity baseline. **This does not mean 41 failures were prevented**. The denominator 643 refers to the eligible test-event subset, not all reported failures. Rankings are not calibrated probabilities, and interventions were not prospectively tested.
+### Key Finding
 
-## Deploy or run
+At a weekly review capacity of 25 wells, WellGuard's historical ranking flagged **116 eligible recorded failure events**, compared with **75 events** using the failure-recency baseline.
 
-**Streamlit Community Cloud:** Publish the **contents** of this folder to your GitHub repository root; select branch `main` and application entrypoint **`streamlit_app.py`**. No competition Parquet files, model binaries, or cloud secrets are needed for the public demo.
+This represents **41 additional historical events identified** at the same inspection capacity.
 
-**Local:**
+These results demonstrate retrospective prioritization performance. They do not establish that failures were prevented or that production losses were recovered.
+
+## 5. Research Methodology
+
+The project follows an evidence-driven analytical workflow:
+
+1. **Data Preparation:** Clean and align daily production, maintenance and failure records.
+2. **Feature Engineering:** Develop historical operating indicators, sensor trends, variability measures and past failure context.
+3. **Predictive Modeling:** Evaluate a LightGBM-based reference model using chronological data splits.
+4. **Model Validation:** Assess classification performance and compare inspection rankings against a failure-recency baseline.
+5. **Inspection Prioritization:** Generate capacity-aware inspection scenarios.
+6. **Operational Investigation:** Examine production, downtime, maintenance and equipment indicators to support review decisions.
+
+Additional methodology and validation details are provided in [docs/METHODOLOGY_AND_VALIDATION.md](docs/METHODOLOGY_AND_VALIDATION.md).
+
+## 6. Public Dashboard and Data Handling
+
+The public dashboard uses two clearly distinguished data sources.
+
+**Historical Research Results**
+
+Saved aggregate model-performance results and retrospective comparisons are stored in `public_data/`. They summarize earlier competition analyses and are not recalculated from private source records in the deployed application. Public release of these aggregates remains subject to applicable organizer permissions.
+
+**Interactive Demonstration Data**
+
+Individual demonstration wells, equipment measurements, rankings, coordinates, maintenance records and example events are synthetic.
+
+The synthetic data is generated reproducibly through `demo_data.py` and supports interactive exploration without exposing restricted competition information.
+
+The public demonstration does not represent a live operational deployment or independently validate field-level predictions.
+
+## 7. Technology Stack
+
+| Technology | Application |
+|---|---|
+| Python | Data processing and application development |
+| Pandas / NumPy | Data analysis and transformation |
+| LightGBM | Historical failure-risk modeling |
+| Scikit-learn | Model evaluation and validation |
+| Streamlit | Interactive dashboard development |
+| Plotly | Interactive data visualization |
+| Databricks / SQL | Analytical workflow and reproducibility materials |
+| GitHub | Source-code management and project documentation |
+
+## 8. Running the Dashboard
+
+The public application can be deployed through Streamlit Community Cloud or executed locally.
+
+**Streamlit Cloud Configuration**
+
+- Repository: `DATA-TITANS-WellGuard`
+- Branch: `main`
+- Main file: `streamlit_app.py`
+- Dependencies: `requirements.txt`
+
+**Local Execution**
 
 ```bash
 python -m pip install -r requirements.txt
 python -m streamlit run streamlit_app.py
 ```
 
-If the deployment fails, check Streamlit logs and confirm `streamlit_app.py`, `demo_data.py`, `requirements.txt`, `public_data/` and `.streamlit/config.toml` are all at the expected relative locations.
+## 9. Repository Structure
 
-## Folder guide
-
-| Path | Purpose |
+| File / Directory | Description |
 |---|---|
-| `streamlit_app.py` | Full ten-page **public-safe** Streamlit application |
-| `demo_data.py` | Reproducible, explicitly **synthetic** example well-level data generator |
-| `public_data/` | Saved real research **aggregate** metrics, not well-level source observations |
-| `research_source/` | Research scripts and original private application **source code**, not the public entrypoint; requires separately authorized source data |
-| `databricks/` | Optional reproducibility notebook / SQL (not evidence of an executed Databricks model run) |
-| `docs/` | Evaluation methodology, source restrictions and references |
-| `scripts/publication_preflight.py` | Static file and notebook-output release checks |
-| `AI_USE_DISCLOSURE.md` | Competition-required assistance disclosure; verify details before final submission |
-| `slides/`, `media/` | Optional location for slide and video references; video/slides can be hosted separately, with links above |
+| `streamlit_app.py` | Main interactive WellGuard dashboard |
+| `demo_data.py` | Synthetic demonstration data generator |
+| `requirements.txt` | Python dependencies |
+| `public_data/` | Saved aggregate research results |
+| `research_source/` | Research scripts and private-data application source |
+| `databricks/` | Databricks notebook and SQL files |
+| `docs/` | Research methodology and supporting documentation |
+| `tests/` | Application and data-validation tests |
+| `.streamlit/` | Streamlit application configuration |
+| `AI_USE_DISCLOSURE.md` | AI-use disclosure |
 
-## Limitations and responsible data handling
+## 10. Limitations and Future Development
 
-Historical failure reporting changes over time. Key sensors are incompletely recorded. Source cost fields are generally estimates rather than actual costs. Observation changes before/after maintenance do not identify causal maintenance impact. No real well-level data, identifier, coordinate, historical score, job, private model artifact, credential or protected competition file is included in this GitHub release.
+Historical failure reporting varies over time, and some sensor measurements are incomplete. Source cost figures are generally estimates rather than actual expenditures.
 
-**Do not upload raw competition `.parquet` files, derived private CSV exports, location data or restricted screenshots**, even to an app repository. Follow [`docs/PRIVACY_AND_PUBLICATION.md`](docs/PRIVACY_AND_PUBLICATION.md). Saved aggregates may also require approval before public posting.
+Model scores support relative prioritization rather than calibrated failure probabilities. Observed changes after maintenance do not establish causal effects.
 
-Only registered team members should contribute under the competition rules. The team must truthfully complete the organizer-required disclosure in [`AI_USE_DISCLOSURE.md`](AI_USE_DISCLOSURE.md). See [`docs/METHODOLOGY_AND_VALIDATION.md`](docs/METHODOLOGY_AND_VALIDATION.md) for performance provenance and uncertainty.
+Future development could include prospective validation, integration with operational data systems, field inspection feedback, improved model monitoring and evaluation of realized operational outcomes.
 
-## Submission
+Restricted competition datasets and individual well-level source records are not distributed in this repository. Public demonstrations use synthetic well-level examples.
 
-Add exact registered team names, an accessible **five-minute video link**, the final presentation/slides link, and the live Streamlit URL above. The official submission requests a **public repository URL** in the Discord **`#submissions`** channel before **Sunday, November 22, 2026, 12:00 PM Calgary time**. Review [`SUBMISSION_CHECKLIST.md`](SUBMISSION_CHECKLIST.md) immediately before posting.
+## AI-Use Disclosure
+
+The project's AI-use disclosure is provided in [AI_USE_DISCLOSURE.md](AI_USE_DISCLOSURE.md).
+
+---
+
+**DATA TITANS | DSMLC Datathon 2026**
+
+*WellGuard — Predict Risk. Prioritize Reviews. Verify Evidence.*
